@@ -2,8 +2,15 @@ import pool from '../db.js';
 
 export default class PontoDoacao {
   static async listarTodos() {
-    const { rows } = await pool.query('SELECT * FROM pontos_de_doacao ORDER BY id');
-    return rows;
+    try {
+      console.log('Executando query para listar pontos de doação...');
+      const result = await pool.query('SELECT * FROM pontos_de_doacao ORDER BY id');
+      console.log('Query executada com sucesso. Número de linhas retornadas:', result.rows.length);
+      return result.rows;
+    } catch (error) {
+      console.error('Erro ao executar a query:', error);
+      throw error;
+    }
   }
 
   static async buscarPorId(id) {
