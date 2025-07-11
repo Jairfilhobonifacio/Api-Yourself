@@ -1,55 +1,58 @@
-# 🎗️ API de Doação Comunitária
+# API de Doação Comunitária
 
+[![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org/)
 [![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Node.js](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
-[![Express](https://img.shields.io/badge/Express.js-404D59?style=for-the-badge)](https://expressjs.com/)
-[![MySQL](https://img.shields.io/badge/MySQL-005C84?style=for-the-badge&logo=mysql&logoColor=white)](https://www.mysql.com/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
 
-Uma plataforma completa para conectar doadores a pontos de coleta, desenvolvida com React no frontend e Node.js/Express no backend, utilizando banco de dados MySQL.
+Uma plataforma moderna para conectar doadores a pontos de coleta, desenvolvida com Next.js 14 (App Router), TypeScript e Tailwind CSS no frontend, e Node.js/Express com PostgreSQL no backend.
 
-  <img width="1670" height="965" alt="image" src="https://github.com/user-attachments/assets/6dd75951-f26b-4fb9-89cc-68850728fae1" />
+## Destaques
 
+- **Aplicação Full-Stack** com Next.js 14 e App Router
+- **Tipagem Forte** com TypeScript em todo o projeto
+- **UI Moderna e Responsiva** com Tailwind CSS e shadcn/ui
+- **Mapa Interativo** com React Leaflet
+- **Dashboard de Estatísticas** com Recharts
+- **Tema Claro/Escuro** com suporte a preferência do sistema
+- **API RESTful** documentada
 
+## Tecnologias
 
-## 🌟 Destaques
-
-- **Interface moderna e responsiva** com React
-- **Backend robusto** com Node.js e Express
-- **Banco de dados relacional** MySQL para armazenamento seguro
-- **Mapa interativo** para localização de pontos de doação
-- **Painel administrativo** para gerenciamento de pontos
-- **Sistema de autenticação** seguro
-
-## 🚀 Tecnologias
-
-### Frontend
+### Frontend (Next.js 14)
+- Next.js 14 com App Router
+- TypeScript
 - React 18
-- React Router DOM
-- Axios para requisições HTTP
-- Leaflet para mapas interativos
-- Chart.js para visualização de dados
-- Styled Components para estilização
+- Tailwind CSS com shadcn/ui
+- React Hook Form + Zod para validação
+- React Query para gerenciamento de estado
+- React Leaflet para mapas interativos
+- Recharts para visualização de dados
+- Framer Motion para animações
 
 ### Backend
-- Node.js
-- Express.js
-- MySQL (com Sequelize ORM)
+- Node.js com Express
+- TypeScript
+- PostgreSQL com Prisma ORM
 - JWT para autenticação
 - Bcrypt para criptografia de senhas
-- CORS para segurança
+- CORS e Helmet para segurança
+- Swagger para documentação da API
 
-## 📋 Pré-requisitos
+## Pré-requisitos
 
-- Node.js (v16 ou superior)
-- MySQL (v8.0 ou superior)
-- npm ou yarn
+- Node.js (v18 ou superior)
+- PostgreSQL (v14 ou superior)
+- npm ou pnpm
+- Git
 
-## 🛠️ Instalação
+## Instalação
 
 1. **Clone o repositório**
    ```bash
-   git clone https://github.com/jair/api-doacao-comunitaria.git
-   cd api-doacao-comunitaria
+   git clone https://github.com/Jairfilhobonifacio/Api-Yourself.git
+   cd Api-Yourself
    ```
 
 2. **Configure o backend**
@@ -57,24 +60,24 @@ Uma plataforma completa para conectar doadores a pontos de coleta, desenvolvida 
    cd backend
    npm install
    cp .env.example .env
-   # Edite o arquivo .env com suas credenciais do MySQL
+   # Configure as variáveis de ambiente no arquivo .env
    ```
 
 3. **Configure o frontend**
    ```bash
-   cd ../frontend
+   cd ../frontend_new
    npm install
    cp .env.example .env
    # Configure a URL da API no arquivo .env
    ```
 
-4. **Inicie o servidor de desenvolvimento**
+4. **Inicie os servidores de desenvolvimento**
    ```bash
    # No diretório backend
    npm run dev
    
-   # Em outro terminal, no diretório frontend
-   npm start
+   # Em outro terminal, no diretório frontend_new
+   npm run dev
    ```
 
 5. **Acesse a aplicação**
@@ -82,67 +85,69 @@ Uma plataforma completa para conectar doadores a pontos de coleta, desenvolvida 
    http://localhost:3000
    ```
 
-## 🏗️ Estrutura do Projeto
+## Estrutura do Projeto
 
 ```
-api-doacao-comunitaria/
-├── backend/               # Código do servidor
-│   ├── config/           # Configurações do banco de dados
-│   ├── controllers/      # Lógica dos controladores
-│   ├── middlewares/      # Middlewares do Express
-│   ├── models/           # Modelos do Sequelize
-│   ├── routes/           # Rotas da API
-│   ├── services/         # Lógica de negócios
-│   ├── utils/            # Utilitários
-│   └── app.js            # Aplicação principal
+Api-Yourself/
+├── backend/                 # Backend Node.js/Express
+│   ├── src/
+│   │   ├── config/        # Configurações do banco de dados
+│   │   ├── controllers/   # Lógica dos controladores
+│   │   ├── middlewares/   # Middlewares do Express
+│   │   ├── models/        # Modelos do Prisma
+│   │   ├── routes/        # Rotas da API
+│   │   ├── services/      # Lógica de negócios
+│   │   ├── utils/         # Utilitários
+│   │   └── app.ts         # Aplicação principal
+│   └── prisma/           # Migrações e schema do Prisma
 │
-└── frontend/             # Aplicação React
-    ├── public/           # Arquivos estáticos
-    └── src/
-        ├── assets/       # Imagens, ícones, etc.
-        ├── components/   # Componentes reutilizáveis
-        ├── context/      # Contextos do React
-        ├── hooks/        # Custom hooks
-        ├── pages/        # Páginas da aplicação
-        ├── services/     # Serviços de API
-        ├── styles/       # Estilos globais
-        ├── utils/        # Utilitários
-        └── App.js        # Componente raiz
+└── frontend_new/           # Frontend Next.js
+    ├── public/            # Arquivos estáticos
+    ├── src/
+    │   ├── app/           # Rotas da aplicação (App Router)
+    │   ├── components/    # Componentes reutilizáveis
+    │   ├── context/       # Contextos do React
+    │   ├── hooks/         # Custom hooks
+    │   ├── lib/           # Configurações e utilitários
+    │   ├── types/         # Tipos TypeScript
+    │   └── styles/        # Estilos globais
+    └── tailwind.config.ts # Configuração do Tailwind CSS
 ```
 
-## 📚 Documentação da API
+## Documentação da API
 
-A documentação completa da API está disponível em [API_DOCS.md](API_DOCS.md).
+A documentação interativa da API está disponível em `/api-docs` quando o servidor estiver em execução.
 
 ### Principais Endpoints
 
 - `GET /api/pontos` - Lista todos os pontos de doação
-- `GET /api/pontos/cidade/:cidade` - Busca pontos por cidade
+- `GET /api/pontos/estatisticas` - Estatísticas dos pontos de doação
+- `GET /api/pontos/:id` - Busca um ponto específico
 - `POST /api/pontos` - Cria um novo ponto de doação
 - `PUT /api/pontos/:id` - Atualiza um ponto existente
 - `DELETE /api/pontos/:id` - Remove um ponto de doação
 
-## 🤝 Como Contribuir
+## Como Contribuir
 
 1. Faça um fork do projeto
 2. Crie uma branch para sua feature (`git checkout -b feature/nova-feature`)
-3. Commit suas alterações (`git commit -m 'Adiciona nova feature'`)
+3. Commit suas alterações (`git commit -m 'feat: adiciona nova funcionalidade'`)
 4. Faça o push para a branch (`git push origin feature/nova-feature`)
 5. Abra um Pull Request
 
-## 📄 Licença
+## Licença
 
 Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
 
-## 👥 Autores
+## Autores
 
 - **Jair Filho** - [GitHub](https://github.com/Jairfilhobonifacio) | [LinkedIn](#)
 
-## 🙏 Agradecimentos
+## Agradecimentos
 
-- À comunidade de desenvolvedores por todo o suporte
+- À comunidade de código aberto por todas as ferramentas incríveis
 - Aos contribuidores que ajudaram no desenvolvimento
-- A todos que acreditam no poder da solidariedade
+- A todos que acreditam no poder da solidariedade e da tecnologia para o bem
 
 ---
 
