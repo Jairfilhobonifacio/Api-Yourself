@@ -7,7 +7,8 @@
 
 Uma plataforma completa para conectar doadores a pontos de coleta, desenvolvida com React no frontend e Node.js/Express no backend, utilizando banco de dados MySQL.
 
-   <img width="1707" height="991" alt="image" src="https://github.com/user-attachments/assets/28621d75-0416-48fd-bc12-7ba19f524d17" />
+  <img width="1670" height="965" alt="image" src="https://github.com/user-attachments/assets/6dd75951-f26b-4fb9-89cc-68850728fae1" />
+
 
 
 ## 🌟 Destaques
