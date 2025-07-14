@@ -8,11 +8,14 @@
 
 Uma plataforma moderna para conectar doadores a pontos de coleta, desenvolvida com Next.js 14 (App Router), TypeScript e Tailwind CSS no frontend, e Node.js/Express com PostgreSQL no backend.
 
+<img width="1670" height="965" alt="image" src="https://github.com/user-attachments/assets/894ca15f-29fe-4323-b2de-6c51ecca5787" />
+
+
 ## Destaques
 
 - **Aplicação Full-Stack** com Next.js 14 e App Router
 - **Tipagem Forte** com TypeScript em todo o projeto
-- **UI Moderna e Responsiva** com Tailwind CSS e shadcn/ui
+- **UI Moderna e Responsiva** com Tailwind CSS 
 - **Mapa Interativo** com React Leaflet
 - **Dashboard de Estatísticas** com Recharts
 - **Tema Claro/Escuro** com suporte a preferência do sistema
@@ -20,25 +23,41 @@ Uma plataforma moderna para conectar doadores a pontos de coleta, desenvolvida c
 
 ## Tecnologias
 
-### Frontend (Next.js 14)
-- Next.js 14 com App Router
-- TypeScript
-- React 18
-- Tailwind CSS com shadcn/ui
-- React Hook Form + Zod para validação
-- React Query para gerenciamento de estado
-- React Leaflet para mapas interativos
-- Recharts para visualização de dados
-- Framer Motion para animações
+### Frontend (Next.js 15)
+- **Framework**: Next.js 15 com App Router
+- **Linguagem**: TypeScript
+- **Estilização**: 
+  - Tailwind CSS com suporte a temas
+  - Tailwind CSS Animate para animações
+  - Tailwind Merge para combinação de classes
+- **UI/UX**:
+  - Radix UI para componentes acessíveis
+  - Lucide React para ícones
+  - Sonner para notificações toast
+- **Gerenciamento de Estado**:
+  - React Hooks (useState, useEffect, useContext)
+  - React Query para gerenciamento de dados assíncronos
+- **Mapas**:
+  - React Leaflet v5
+  - Leaflet para renderização de mapas
+- **Gráficos**:
+  - Recharts para visualização de dados
+- **Formulários**:
+  - React Hook Form para validação
+  - Zod para esquemas de validação
+- **Temas**:
+  - next-themes para suporte a tema claro/escuro
 
-### Backend
-- Node.js com Express
-- TypeScript
-- PostgreSQL com Prisma ORM
-- JWT para autenticação
-- Bcrypt para criptografia de senhas
-- CORS e Helmet para segurança
-- Swagger para documentação da API
+### Backend (Node.js + Express)
+- **Runtime**: Node.js
+- **Framework**: Express.js
+- **Banco de Dados**: PostgreSQL
+- **ORM**: pg (PostgreSQL client for Node.js)
+- **Segurança**:
+  - CORS para requisições seguras
+  - dotenv para gerenciamento de variáveis de ambiente
+- **Desenvolvimento**:
+  - Nodemon para reinicialização automática em desenvolvimento TypeScript
 
 ## Pré-requisitos
 
