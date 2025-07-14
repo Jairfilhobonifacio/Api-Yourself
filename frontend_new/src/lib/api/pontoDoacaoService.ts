@@ -164,7 +164,7 @@ const PontoDoacaoService = {
    */
   remover: async (id: number): Promise<void> => {
     try {
-      await apiClient.delete(`/pontos/${id}`);
+      await apiClient.delete(`/api/pontos/${id}`);
     } catch (error) {
       console.error(`Erro ao remover ponto de doação com ID ${id}:`, error);
       const serviceError = new Error(`Falha ao remover ponto de doação com ID ${id}`) as ServiceError;

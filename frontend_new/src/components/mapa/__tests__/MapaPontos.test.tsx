@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import { MapaPontos } from '../mapa-pontos'
+import MapaPontos from '../mapa-pontos'
 
 describe('MapaPontos', () => {
   const mockPontos = [

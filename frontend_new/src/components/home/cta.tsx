@@ -37,7 +37,7 @@ export function CTA() {
             </Button>
             {/* Botão para cadastrar um novo ponto de doação. */}
             <Button size="lg" variant="outline" asChild>
-              <Link href="/dashboard/pontos">
+              <Link href="/pontos">
                 Cadastrar ponto de doação
               </Link>
             </Button>

@@ -15,8 +15,12 @@ import {
 } from "recharts";
 import PontoDoacaoService from "@/lib/api/pontoDoacaoService";
 import { Estatisticas } from "@/types/api";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Badge } from "@/components/ui/badge";
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const COLORS = ["#6366f1", "#8b5cf6", "#ec4899", "#14b8a6", "#f59e0b", "#ef4444"];
 
@@ -41,8 +45,45 @@ export default function EstatisticasPage() {
 
   if (loading) {
     return (
-      <main className="container py-12 space-y-6">
-        <Skeleton className="h-8 w-1/3" />
+      <main className="container py-12">
+        <div className="flex items-center gap-4 mb-8">
+          <Button variant="ghost" asChild>
+            <Link href="/">
+              <ArrowLeft className="mr-2 h-4 w-4" />
+              Voltar
+            </Link>
+        </Button>
+        </div>
+        <div className="grid md:grid-cols-2 gap-8">
+          <div>
+            <h1 className="text-4xl font-bold tracking-tight mb-4">Estatísticas</h1>
+            <p className="text-xl text-muted-foreground mb-6">
+              Veja como estamos impactando a comunidade através das doações
+            </p>
+            <div className="flex flex-wrap gap-3 mb-8">
+              <Badge variant="secondary">Impacto Social</Badge>
+              <Badge variant="secondary">Dados em Tempo Real</Badge>
+              <Badge variant="secondary">Transparência</Badge>
+            </div>
+          </div>
+          <div className="bg-gradient-to-r from-blue-500/20 to-purple-500/20 p-8 rounded-lg">
+            <div className="space-y-6">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Total de Pontos</CardTitle>
+                  <CardDescription>Quantidade de pontos de doação cadastrados</CardDescription>
+                </CardHeader>
+              </Card>
+              <Card>
+                <CardHeader>
+                  <CardTitle>Doações Realizadas</CardTitle>
+                  <CardDescription>Quantidade de doações efetuadas através da plataforma</CardDescription>
+                </CardHeader>
+              </Card>
+            </div>
+          </div>
+        </div>
+        
         <div className="grid md:grid-cols-2 gap-6">
           <Skeleton className="h-40 w-full" />
           <Skeleton className="h-40 w-full" />

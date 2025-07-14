@@ -1,232 +1,182 @@
 'use client';
 
-import { useState } from 'react';
-import { PlusCircle, Pencil, Trash2, MapPin, Clock, Mail, Phone, Globe } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { useToast } from '@/components/ui/use-toast';
-import PontoDoacaoForm from '@/components/pontos/PontoDoacaoForm';
+import { useState, useEffect } from 'react';
+import { PlusCircle, Pencil, Trash2, MapPin, Clock } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import { usePontosDoacao } from '@/context/PontosDoacaoContext';
-import type { PontoDoacao, CriarPontoData, AtualizarPontoData } from '@/types/api';
+import { useToast } from '@/hooks/useToast';
+// Estilos movidos para Tailwind CSS inline
 
 export default function GerenciarPontosPage() {
-  const [isFormOpen, setIsFormOpen] = useState(false);
-  const [pontoEditando, setPontoEditando] = useState<PontoDoacao | null>(null);
-  const { toast } = useToast();
-  
-  // Usando o hook do contexto
-  const {
-    pontos,
-    loading: isLoading,
-    criarPonto,
-    atualizarPonto,
-    removerPonto
-  } = usePontosDoacao();
+  const router = useRouter();
+  const { pontos, carregarPontos, removerPonto } = usePontosDoacao();
+  const [isLoading, setIsLoading] = useState(true);
+  const [isRemoving, setIsRemoving] = useState<number | null>(null);
+  const toast = useToast();
 
-  const handleSubmit = async (data: CriarPontoData | AtualizarPontoData) => {
-    try {
-      if (pontoEditando && 'id' in data) {
-        await atualizarPonto(pontoEditando.id!, data as AtualizarPontoData);
-        toast({
-          title: 'Sucesso',
-          description: 'Ponto de doação atualizado com sucesso!',
-        });
-      } else {
-        await criarPonto(data as CriarPontoData);
-        toast({
-          title: 'Sucesso',
-          description: 'Ponto de doação criado com sucesso!',
-        });
-      }
-      setIsFormOpen(false);
-      setPontoEditando(null);
-    } catch (error) {
-      console.error('Erro ao salvar ponto:', error);
-      const errorMessage = error instanceof Error ? error.message : 'Ocorreu um erro desconhecido';
-      toast({
-        title: 'Erro',
-        description: `Não foi possível salvar o ponto de doação: ${errorMessage}`,
-        variant: 'destructive',
-      });
-    }
+  const handleNovoPonto = () => {
+    router.push('/dashboard/pontos/novo');
   };
 
-  const handleEditar = (ponto: PontoDoacao) => {
-    setPontoEditando(ponto);
-    setIsFormOpen(true);
+  const handleEditarPonto = (id: number | string | undefined) => {
+    if (id === undefined) return;
+    const idNumber = typeof id === 'string' ? parseInt(id, 10) : id;
+    if (isNaN(idNumber)) return;
+    router.push(`/dashboard/pontos/editar/${idNumber}`);
   };
 
-  const handleRemover = async (id: number) => {
+  const handleRemover = async (id: number | string | undefined) => {
+    if (id === undefined) return;
+    const idNumber = typeof id === 'string' ? parseInt(id, 10) : id;
+    if (isNaN(idNumber)) return;
+    
     if (!confirm('Tem certeza que deseja remover este ponto de doação?')) return;
     
     try {
-      await removerPonto(id);
-      toast({
-        title: 'Sucesso',
-        description: 'Ponto de doação removido com sucesso!',
-      });
+      setIsRemoving(idNumber);
+      await removerPonto(idNumber);
+      toast.success('Ponto de doação removido com sucesso!');
+      // Recarregar a lista após remoção
+      await carregarPontos();
     } catch (error) {
       console.error('Erro ao remover ponto:', error);
       const errorMessage = error instanceof Error ? error.message : 'Ocorreu um erro desconhecido';
-      toast({
-        title: 'Erro',
-        description: `Não foi possível remover o ponto de doação: ${errorMessage}`,
-        variant: 'destructive',
-      });
+      toast.error(`Não foi possível remover o ponto de doação: ${errorMessage}`);
+    } finally {
+      setIsRemoving(null);
     }
   };
 
+  // Efeito para carregar os pontos quando o componente for montado
+  useEffect(() => {
+    const carregarDados = async () => {
+      try {
+        await carregarPontos();
+      } catch (error) {
+        console.error('Erro ao carregar pontos:', error);
+        toast.error('Não foi possível carregar os pontos de doação');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    carregarDados();
+  }, [carregarPontos, toast]);
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-64">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      </div>
+    );
+  }
+
   return (
-    <div className="container mx-auto py-8">
-      <div className="flex justify-between items-center mb-8">
-        <div>
-          <h1 className="text-3xl font-bold">Gerenciar Pontos de Doação</h1>
-          <p className="text-muted-foreground">Adicione, edite ou remova pontos de doação</p>
-        </div>
-        <Button onClick={() => {
-          setPontoEditando(null);
-          setIsFormOpen(true);
-        }}>
-          <PlusCircle className="mr-2 h-4 w-4" />
+    <div className="p-6 max-w-7xl mx-auto" aria-busy={isLoading} aria-live="polite">
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">Gerenciar Pontos de Doação</h1>
+        <p className="text-gray-600">Adicione, edite ou remova pontos de doação</p>
+      </div>
+      <div className="mb-8">
+        <button
+          onClick={handleNovoPonto}
+          className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-all duration-200 flex items-center gap-2"
+          aria-label="Adicionar novo ponto de doação"
+        >
+          <PlusCircle className="w-5 h-5" />
           Novo Ponto
-        </Button>
+        </button>
       </div>
 
-      {isFormOpen && (
-        <Card className="mb-8">
-          <CardHeader>
-            <CardTitle>
-              {pontoEditando ? 'Editar Ponto de Doação' : 'Adicionar Novo Ponto de Doação'}
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <PontoDoacaoForm 
-              pontoInicial={pontoEditando || undefined}
-              onSubmitAction={handleSubmit}
-              onCancelAction={() => {
-                setIsFormOpen(false);
-                setPontoEditando(null);
-              }}
-            />
-          </CardContent>
-        </Card>
-      )}
-
-      {isLoading ? (
-        <div className="flex justify-center items-center h-64">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
-        </div>
-      ) : (
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {pontos.map((ponto) => (
-            <Card key={ponto.id} className="h-full flex flex-col">
-              <CardHeader>
-                <div className="flex justify-between items-start">
-                  <div>
-                    <CardTitle className="text-xl">{ponto.nome}</CardTitle>
-                    <CardDescription className="mt-1">{ponto.cidade}</CardDescription>
-                  </div>
-                  <div className="flex space-x-2">
-                    <Button 
-                      variant="ghost" 
-                      size="icon" 
-                      onClick={() => handleEditar(ponto)}
-                    >
-                      <Pencil className="h-4 w-4" />
-                    </Button>
-                    <Button 
-                      variant="ghost" 
-                      size="icon" 
-                      className="text-destructive hover:text-destructive"
-                      onClick={() => ponto.id && handleRemover(ponto.id)}
-                    >
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
+      {/* Lista de Pontos */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" role="list" aria-label="Lista de pontos de doação">
+        {pontos.length === 0 ? (
+          <div className="col-span-full text-center py-8">
+            <p className="text-gray-500">Nenhum ponto de doação cadastrado ainda.</p>
+            <button
+              onClick={handleNovoPonto}
+              className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+            >
+              Adicionar primeiro ponto
+            </button>
+          </div>
+        ) : (
+          pontos.map((pontoAtual) => (
+          <div key={pontoAtual.id} className="bg-white rounded-lg shadow-sm overflow-hidden transition-all duration-300 hover:shadow-md hover:-translate-y-0.5">
+            <div className="p-6">
+              <h2 className="text-xl font-semibold text-gray-900">{pontoAtual.nome}</h2>
+              <p className="text-gray-600 mt-1">{pontoAtual.cidade}</p>
+            </div>
+            <div className="px-6 pb-6">
+              <div className="flex items-center gap-3 mb-4">
+                <MapPin className="w-6 h-6 text-gray-400 flex-shrink-0" />
+                <span className="text-gray-800">{pontoAtual.endereco}</span>
+              </div>
+              {pontoAtual.horario && (
+                <div className="flex items-center gap-3 mb-4">
+                  <Clock className="w-6 h-6 text-gray-400 flex-shrink-0" />
+                  <span className="text-gray-800">{pontoAtual.horario}</span>
+                </div>
+              )}
+              {pontoAtual.tipoDoacoes && pontoAtual.tipoDoacoes.length > 0 && (
+                <div className="mb-4">
+                  <h4 className="text-sm font-medium text-gray-700 mb-2">Tipos de doação aceitos:</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {pontoAtual.tipoDoacoes.map((tipo, index) => (
+                      <span key={index} className="px-2.5 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                        {tipo}
+                      </span>
+                    ))}
                   </div>
                 </div>
-              </CardHeader>
-              <CardContent className="flex-1 flex flex-col">
-                <div className="space-y-2 flex-1">
-                  <div className="flex items-center text-sm text-muted-foreground">
-                    <MapPin className="mr-2 h-4 w-4" />
-                    <span>{ponto.endereco}</span>
+              )}
+              {pontoAtual.itensUrgentes && pontoAtual.itensUrgentes.length > 0 && (
+                <div className="mb-4">
+                  <h4 className="text-sm font-medium text-gray-700 mb-2">Itens urgentes:</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {pontoAtual.itensUrgentes.map((item, index) => (
+                      <span key={index} className="px-2.5 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                        {item}
+                      </span>
+                    ))}
                   </div>
-                  {ponto.horario && (
-                    <div className="flex items-center text-sm text-muted-foreground">
-                      <Clock className="mr-2 h-4 w-4" />
-                      <span>{ponto.horario}</span>
-                    </div>
-                  )}
-                  {ponto.contato && (
-                    <div className="flex items-center text-sm text-muted-foreground">
-                      <Phone className="mr-2 h-4 w-4" />
-                      <span>{ponto.contato}</span>
-                    </div>
-                  )}
-                  {ponto.email && (
-                    <div className="flex items-center text-sm text-muted-foreground">
-                      <Mail className="mr-2 h-4 w-4" />
-                      <a href={`mailto:${ponto.email}`} className="hover:underline">
-                        {ponto.email}
-                      </a>
-                    </div>
-                  )}
-                  {ponto.site && (
-                    <div className="flex items-center text-sm text-muted-foreground">
-                      <Globe className="mr-2 h-4 w-4" />
-                      <a 
-                        href={ponto.site.startsWith('http') ? ponto.site : `https://${ponto.site}`} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="hover:underline"
-                      >
-                        {ponto.site}
-                      </a>
-                    </div>
-                  )}
-                  
-                  {ponto.tipoDoacoes && ponto.tipoDoacoes.length > 0 && (
-                    <div className="mt-2">
-                      <h4 className="text-sm font-medium mb-1">Tipos de doação aceitos:</h4>
-                      <div className="flex flex-wrap gap-1">
-                        {ponto.tipoDoacoes.map((tipo, index) => (
-                          <Badge key={index} variant="secondary" className="text-xs">
-                            {tipo}
-                          </Badge>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                  {ponto.itensUrgentes && ponto.itensUrgentes.length > 0 && (
-                    <div className="mt-2">
-                      <h4 className="text-sm font-medium mb-1">Itens urgentes:</h4>
-                      <div className="flex flex-wrap gap-1">
-                        {ponto.itensUrgentes.map((item, index) => (
-                          <Badge key={index} variant="destructive" className="text-xs">
-                            {item}
-                          </Badge>
-                        ))}
-                      </div>
-                    </div>
-                  )}
                 </div>
-                
-                <div className="mt-4 pt-4 border-t">
-                  <Button 
-                    variant="outline" 
-                    className="w-full"
-                    onClick={() => window.open(`/mapa?ponto=${ponto.id}`, '_blank')}
-                  >
-                    Ver no mapa
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      )}
+              )}
+            </div>
+            <div className="px-4 py-3 bg-gray-50 border-t border-gray-200 flex justify-end">
+              <button
+                onClick={() => {
+                  const id = pontoAtual.id;
+                  if (id !== undefined) {
+                    handleEditarPonto(id);
+                  }
+                }}
+                disabled={isRemoving === pontoAtual.id}
+                aria-label={`Editar ${pontoAtual.nome}`}
+                className="px-3 py-1.5 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors flex items-center text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                <Pencil className="w-4 h-4 mr-1" />
+                Editar
+              </button>
+              <button
+                onClick={() => {
+                  const id = pontoAtual.id;
+                  if (id !== undefined) {
+                    handleRemover(id);
+                  }
+                }}
+                disabled={isRemoving === pontoAtual.id}
+                aria-label={`Excluir ${pontoAtual.nome}`}
+                className="ml-2 px-3 py-1.5 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors flex items-center text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                <Trash2 className="w-4 h-4 mr-1" />
+                {isRemoving === pontoAtual.id ? 'Excluindo...' : 'Excluir'}
+              </button>
+            </div>
+          </div>
+          ))
+        )}
+      </div>
     </div>
   );
 }

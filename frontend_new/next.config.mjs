@@ -18,15 +18,21 @@ const nextConfig = {
       bodySizeLimit: '2mb',
     },
   },
-  // Configuração de rewrites para redirecionar as requisições da API
+  // Configuração de rewrites para redirecionar as requisições da API e rotas não-API
   async rewrites() {
     const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
     console.log('Configurando proxy para a API:', apiUrl);
     
     return [
+      // Para rotas da API
       {
         source: '/api/:path*',
         destination: `${apiUrl}/api/:path*`,
+      },
+      // Para rotas não-API
+      {
+        source: '/:path*',
+        destination: `${apiUrl}/:path*`,
       },
     ]
   },

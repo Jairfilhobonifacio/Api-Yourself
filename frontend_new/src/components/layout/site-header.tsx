@@ -7,7 +7,7 @@ import Link from "next/link"
 // Importa o hook usePathname para obter o caminho da URL atual.
 import { usePathname } from "next/navigation"
 // Importa ícones da biblioteca lucide-react.
-import { Moon, Sun, Menu, MapPin } from "lucide-react"
+import { Moon, Sun, Menu, MapPin, Heart } from "lucide-react"
 // Importa o hook useTheme da biblioteca next-themes para gerenciar o tema da aplicação.
 import { useTheme } from "next-themes"
 
@@ -56,8 +56,10 @@ export function SiteHeader() {
       <div className="container flex h-16 items-center">
         {/* Navegação para telas de tamanho médio (md) ou maiores. Fica oculta em telas pequenas. */}
         <div className="mr-4 hidden md:flex">
-          <Link href="/" className="mr-6 flex items-center space-x-2">
-            <span className="font-bold">ApiYourself</span>
+          <Link href="/" className="mr-6 flex items-center space-x-2 group">
+            <span className="font-bold">Api</span>
+            <Heart className="h-5 w-5 text-pink-500 fill-current group-hover:scale-110 transition-transform" />
+            <span className="font-bold">Yourself</span>
           </Link>
           <nav className="flex items-center space-x-6 text-sm font-medium">
             {navItems.map((item) => (
@@ -92,9 +94,13 @@ export function SiteHeader() {
           <SheetContent className="pr-0">
             <div className="space-y-4 py-4">
               <div className="px-3 py-2">
-                <h2 className="mb-2 px-4 text-lg font-semibold tracking-tight">
-                  Navegação
-                </h2>
+                <div className="flex items-center justify-center mb-6">
+                  <Link href="/" className="flex items-center space-x-2 group">
+                    <span className="text-xl font-bold">Api</span>
+                    <Heart className="h-6 w-6 text-pink-500 fill-current group-hover:scale-110 transition-transform" />
+                    <span className="text-xl font-bold">Yourself</span>
+                  </Link>
+                </div>
                 <div className="space-y-1">
                   {navItems.map((item) => (
                     <Link

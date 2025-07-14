@@ -4,8 +4,10 @@
 
 // Importa o ThemeProvider para gerenciar o tema da aplicação (claro/escuro).
 import { ThemeProvider } from "@/components/providers/theme-provider";
-// Importa o Toaster para exibir notificações (toasts) na interface.
-import { Toaster } from "@/components/ui/toaster";
+// Importa o NotificationProvider para gerenciar notificações.
+import { NotificationProvider } from "@/context/NotificationContext";
+// Importa o ToastContainer personalizado para exibir notificações.
+import { ToastContainer } from "@/components/ui/CustomToast";
 // Importa o cabeçalho do site.
 import { SiteHeader } from "@/components/layout/site-header";
 // Importa o rodapé do site.
@@ -50,20 +52,16 @@ export function ClientProviders({ children }: { children: React.ReactNode }) {
       enableSystem // Permite que o tema do sistema seja detectado.
       disableTransitionOnChange // Desativa transições de CSS ao mudar de tema para evitar piscadas.
     >
-      {/* O PontosDoacaoProvider fornece o contexto de pontos de doação para a aplicação. */}
-      <PontosDoacaoProvider>
-        {/* Define a estrutura de layout principal com flexbox. */}
-        <div className="relative flex min-h-screen flex-col">
-          {/* Renderiza o cabeçalho do site. */}
-          <SiteHeader />
-          {/* O conteúdo principal da página é renderizado aqui. */}
-          <main className="flex-1">{children}</main>
-          {/* Renderiza o rodapé do site. */}
-          <SiteFooter />
-          {/* O Toaster é o componente responsável por renderizar as notificações. */}
-          <Toaster />
-        </div>
-      </PontosDoacaoProvider>
+      <NotificationProvider>
+        <PontosDoacaoProvider>
+          <div className="relative flex min-h-screen flex-col">
+            <SiteHeader />
+            <main className="flex-1">{children}</main>
+            <SiteFooter />
+            <ToastContainer />
+          </div>
+        </PontosDoacaoProvider>
+      </NotificationProvider>
     </ThemeProvider>
   );
 }

@@ -2,9 +2,10 @@ import * as React from "react"
 import { VariantProps } from "class-variance-authority"
 
 declare const badgeVariants: (
-  props?: ({
+  props?: {
     variant?: "default" | "secondary" | "destructive" | "outline" | null | undefined
-  } & import("class-variance-authority/dist/types").ClassProp) | undefined
+    className?: string
+  } | undefined
 ) => string
 
 export interface BadgeProps

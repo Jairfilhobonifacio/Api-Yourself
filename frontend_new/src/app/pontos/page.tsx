@@ -3,18 +3,38 @@
 import * as React from "react"
 import { PontoCard } from "@/components/pontos/ponto-card"
 import { FiltroPontos } from "@/components/pontos/filtro-pontos"
-import { Button } from "@/components/ui/button"
+import { usePontosDoacao } from "@/context/PontosDoacaoContext"
+import { toast } from "@/components/ui/use-toast"
+import type { PontoDoacao } from "@/types/ponto"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { AlertCircle, Plus, Loader2, Info } from "lucide-react"
 import Link from "next/link"
-import { usePontosDoacao } from "@/context/PontosDoacaoContext"
 import { Skeleton } from "@/components/ui/skeleton"
 
 export default function PontosPage() {
-  const [busca, setBusca] = React.useState<string>("")
+  const [busca, setBusca] = React.useState('')
   const [filtros, setFiltros] = React.useState<string[]>([])
   const [localError, setLocalError] = React.useState<Error | null>(null);
+  const { 
+    pontos, 
+    loading, 
+    error: contextError, 
+    carregarPontos, 
+    removerPonto 
+  } = usePontosDoacao();
   
+  const [pontosLocais, setPontosLocais] = React.useState<PontoDoacao[]>([]);
+  
+  // Sincroniza os pontos locais com os pontos do contexto
+  React.useEffect(() => {
+    if (pontos) {
+      setPontosLocais(pontos);
+    }
+  }, [pontos]);
+
+  // Usar o erro do contexto ou o erro local
+  const error = contextError || localError;
+
   // Funções de ação para o FiltroPontos
   const handleBuscaChange = React.useCallback((novaBusca: string) => {
     setBusca(novaBusca);
@@ -23,16 +43,6 @@ export default function PontosPage() {
   const handleFiltrosChange = React.useCallback((novosFiltros: string[]) => {
     setFiltros(novosFiltros);
   }, []);
-  
-  const { 
-    pontos, 
-    loading, 
-    error: contextError, 
-    carregarPontos 
-  } = usePontosDoacao()
-
-  // Usar o erro do contexto ou o erro local
-  const error = contextError || localError;
 
   // Carregar pontos ao montar o componente
   React.useEffect(() => {
@@ -87,8 +97,8 @@ export default function PontosPage() {
     };
   }, [carregarPontos])
 
-  // Definir tipo para o ponto de doação
-  interface PontoDoacao {
+  // Definir tipo para o ponto de doação recebido da API
+  interface PontoDoacaoAPI {
     id?: string | number;
     nome?: string;
     endereco?: string;
@@ -101,7 +111,7 @@ export default function PontosPage() {
   }
 
   // Função para processar cada ponto individualmente
-  const processarPonto = (ponto: PontoDoacao, index: number) => {
+  const processarPonto = (ponto: PontoDoacaoAPI, index: number) => {
     // Gerar um ID único para o ponto
     const generateUniqueId = () => {
       const timestamp = Date.now().toString(36);
@@ -159,11 +169,44 @@ export default function PontosPage() {
     }
   };
   
-  // Mapear os pontos para o formato esperado pelo PontoCard
-  console.log('Iniciando mapeamento de pontos. Total de pontos:', pontos?.length || 0);
+  // Função para lidar com a exclusão de um ponto
+  const handleDeletePonto = async (id: string | number) => {
+    try {
+      // Atualizar o estado local removendo o ponto excluído
+      setPontosLocais(prev => prev.filter(p => p.id !== id));
+      
+      // Chamar a API para remover o ponto
+      await removerPonto(Number(id));
+      
+      // Recarregar os pontos para garantir que a lista esteja atualizada
+      await carregarPontos();
+      
+      // Mostrar mensagem de sucesso
+      toast({
+        title: "Sucesso",
+        description: "Ponto de doação removido com sucesso.",
+        variant: "default",
+      });
+    } catch (error) {
+      console.error('Erro ao remover ponto:', error);
+      
+      // Mostrar mensagem de erro
+      toast({
+        title: "Erro",
+        description: "Não foi possível remover o ponto de doação. Tente novamente.",
+        variant: "destructive",
+      });
+      
+      // Recarregar os pontos em caso de erro para garantir consistência
+      await carregarPontos();
+    }
+  };
   
-  const pontosMapeados = (pontos || [])
-    .filter((ponto: PontoDoacao, index: number) => {
+  // Mapear os pontos para o formato esperado pelo PontoCard
+  console.log('Iniciando mapeamento de pontos. Total de pontos:', pontosLocais?.length || 0);
+  
+  const pontosMapeados = (pontosLocais || [])
+    .filter((ponto: PontoDoacaoAPI, index: number) => {
       if (!ponto || typeof ponto !== 'object') {
         console.warn(`Ponto inválido (não é um objeto) na posição ${index}:`, ponto);
         return false;
@@ -176,7 +219,7 @@ export default function PontosPage() {
       
       return hasRequiredFields;
     })
-    .map((ponto: PontoDoacao, index: number) => processarPonto(ponto, index));
+    .map((ponto: PontoDoacaoAPI, index: number) => processarPonto(ponto, index));
   
   console.log('Mapeamento de pontos concluído. Total de pontos mapeados:', pontosMapeados.length);
 
@@ -248,9 +291,8 @@ export default function PontosPage() {
             {error.message || 'Ocorreu um erro ao carregar os pontos de doação. Por favor, tente novamente mais tarde.'}
           </AlertDescription>
           <div className="mt-4">
-            <Button 
-              variant="outline" 
-              size="sm" 
+            <button 
+              className={`inline-flex items-center justify-center rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`} 
               onClick={() => carregarPontos()}
               disabled={loading}
             >
@@ -262,7 +304,7 @@ export default function PontosPage() {
               ) : (
                 'Tentar novamente'
               )}
-            </Button>
+            </button>
           </div>
         </Alert>
       </div>
@@ -278,12 +320,13 @@ export default function PontosPage() {
             Encontre locais que estão precisando de doações
           </p>
         </div>
-        <Button asChild>
-          <Link href="/pontos/novo">
-            <Plus className="mr-2 h-4 w-4" />
-            Adicionar Ponto
-          </Link>
-        </Button>
+        <Link 
+          href="/pontos/novo" 
+          className="inline-flex items-center justify-center rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+        >
+          <Plus className="mr-2 h-4 w-4" />
+          Adicionar Ponto
+        </Link>
       </div>
 
       <div className="mb-8">
@@ -333,7 +376,13 @@ export default function PontosPage() {
                 ...(ponto.site && { site: ponto.site })
               };
               
-              return <PontoCard key={pontoKey} {...pontoValido} />;
+              return (
+                <PontoCard 
+                  key={pontoKey} 
+                  {...pontoValido} 
+                  onDelete={handleDeletePonto}
+                />
+              );
               
             } catch (error) {
               console.error('Erro ao renderizar ponto:', error, 'Dados do ponto:', ponto);
@@ -365,16 +414,15 @@ export default function PontosPage() {
           </p>
           
           {!loading && (busca || filtros.length > 0) && (
-            <Button 
-              variant="outline" 
-              className="mt-4"
+            <button 
+              className="mt-4 inline-flex items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
               onClick={() => {
                 setBusca('');
                 setFiltros([]);
               }}
             >
               Limpar filtros
-            </Button>
+            </button>
           )}
         </div>
       )}

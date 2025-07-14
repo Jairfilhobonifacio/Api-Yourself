@@ -1,4 +1,4 @@
-// Importa o componente ClientProviders, que contém os provedores de contexto do lado do cliente.
+// Importa o componente ClientProviders que contém todos os provedores necessários
 import { ClientProviders } from "@/components/providers/client-providers";
 
 /**
@@ -9,6 +9,9 @@ import { ClientProviders } from "@/components/providers/client-providers";
  * @returns {JSX.Element} O elemento JSX que representa os provedores envolvendo os filhos.
  */
 export function Providers({ children }: { children: React.ReactNode }) {
-  // Renderiza o ClientProviders, passando os componentes filhos para serem envolvidos.
-  return <ClientProviders>{children}</ClientProviders>;
+  return (
+    <ClientProviders>
+      {children}
+    </ClientProviders>
+  );
 }

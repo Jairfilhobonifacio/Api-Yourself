@@ -15,10 +15,6 @@ interface PontoFormValues {
   latitude?: number;
   longitude?: number;
 }
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-// Removendo importações não utilizadas
 import { PontoDoacao, CriarPontoData, AtualizarPontoData } from '@/types/api';
 
 // Validação simples sem Zod
@@ -86,14 +82,6 @@ export function PontoDoacaoForm({
     }));
   };
   
-  const handleNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormValues(prev => ({
-      ...prev,
-      [name]: value === '' ? undefined : Number(value)
-    }));
-  };
-
   const { tipoDoacoes, itensUrgentes } = formValues;
 
   const adicionarTipo = () => {
@@ -147,203 +135,199 @@ export function PontoDoacaoForm({
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="space-y-2">
-          <Label htmlFor="nome">Nome do Local *</Label>
-          <Input
-            id="nome"
-            name="nome"
-            value={formValues.nome}
-            onChange={handleChange}
-            placeholder="Ex: Centro Comunitário da Vila"
-            className={errors.nome ? 'border-red-500' : ''}
-          />
-          {errors.nome && (
-            <p className="text-sm text-red-500">{errors.nome}</p>
-          )}
-        </div>
+    <form onSubmit={handleSubmit} className="max-w-2xl mx-auto p-6 space-y-6">
+      <div className="space-y-2">
+        <label htmlFor="nome" className="block text-sm font-medium text-gray-700">Nome do Ponto</label>
+        <input
+          type="text"
+          id="nome"
+          name="nome"
+          value={formValues.nome}
+          onChange={handleChange}
+          className={`block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm ${
+            errors.nome ? 'border-red-500' : 'border-gray-300'
+          }`}
+          placeholder="Ex: Centro de Doações Comunitário"
+        />
+        {errors.nome && <p className="mt-1 text-sm text-red-600">{errors.nome}</p>}
+      </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="endereco">Endereço *</Label>
-          <Input
-            id="endereco"
-            name="endereco"
-            value={formValues.endereco}
-            onChange={handleChange}
-            placeholder="Ex: Rua das Flores, 123"
-            className={errors.endereco ? 'border-red-500' : ''}
-          />
-          {errors.endereco && (
-            <p className="text-sm text-red-500">{errors.endereco}</p>
-          )}
-        </div>
+      <div className="space-y-2">
+        <label htmlFor="endereco" className="block text-sm font-medium text-gray-700">Endereço</label>
+        <input
+          type="text"
+          id="endereco"
+          name="endereco"
+          value={formValues.endereco}
+          onChange={handleChange}
+          className={`block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm ${
+            errors.endereco ? 'border-red-500' : 'border-gray-300'
+          }`}
+          placeholder="Ex: Rua das Doações, 123"
+        />
+        {errors.endereco && <p className="mt-1 text-sm text-red-600">{errors.endereco}</p>}
+      </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="cidade">Cidade *</Label>
-          <Input
-            id="cidade"
-            name="cidade"
-            value={formValues.cidade}
-            onChange={handleChange}
-            placeholder="Ex: São Paulo"
-            className={errors.cidade ? 'border-red-500' : ''}
-          />
-          {errors.cidade && (
-            <p className="text-sm text-red-500">{errors.cidade}</p>
-          )}
-        </div>
+      <div className="space-y-2">
+        <label htmlFor="cidade" className="block text-sm font-medium text-gray-700">Cidade</label>
+        <input
+          type="text"
+          id="cidade"
+          name="cidade"
+          value={formValues.cidade}
+          onChange={handleChange}
+          className={`block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm ${
+            errors.cidade ? 'border-red-500' : 'border-gray-300'
+          }`}
+          placeholder="Ex: São Paulo"
+        />
+        {errors.cidade && <p className="mt-1 text-sm text-red-600">{errors.cidade}</p>}
+      </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="horario">Horário de Funcionamento</Label>
-          <Input
-            id="horario"
-            name="horario"
-            value={formValues.horario}
-            onChange={handleChange}
-            placeholder="Ex: Seg a Sex, das 9h às 18h"
-          />
-        </div>
+      <div className="space-y-2">
+        <label htmlFor="horario" className="block text-sm font-medium text-gray-700">Horário de Funcionamento</label>
+        <input
+          type="text"
+          id="horario"
+          name="horario"
+          value={formValues.horario || ''}
+          onChange={handleChange}
+          className="block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm"
+          placeholder="Ex: Segunda a Sexta, das 9h às 18h"
+        />
+      </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="contato">Contato</Label>
-          <Input
-            id="contato"
-            name="contato"
-            value={formValues.contato}
-            onChange={handleChange}
-            placeholder="Ex: (11) 99999-9999"
-          />
-        </div>
+      <div className="space-y-2">
+        <label htmlFor="contato" className="block text-sm font-medium text-gray-700">Contato (Telefone/WhatsApp)</label>
+        <input
+          type="text"
+          id="contato"
+          name="contato"
+          value={formValues.contato || ''}
+          onChange={handleChange}
+          className="block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm"
+          placeholder="Ex: (11) 99999-9999"
+        />
+      </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="email">E-mail</Label>
-          <Input
-            id="email"
-            name="email"
-            type="email"
-            value={formValues.email}
-            onChange={handleChange}
-            placeholder="Ex: contato@exemplo.com"
-            className={errors.email ? 'border-red-500' : ''}
-          />
-          {errors.email && (
-            <p className="text-sm text-red-500">{errors.email}</p>
-          )}
-        </div>
+      <div className="space-y-2">
+        <label htmlFor="email" className="block text-sm font-medium text-gray-700">E-mail</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          value={formValues.email || ''}
+          onChange={handleChange}
+          className={`block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm ${
+            errors.email ? 'border-red-500' : 'border-gray-300'
+          }`}
+          placeholder="Ex: contato@exemplo.com"
+        />
+        {errors.email && <p className="mt-1 text-sm text-red-600">{errors.email}</p>}
+      </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="site">Site</Label>
-          <Input
-            id="site"
-            name="site"
-            value={formValues.site}
-            onChange={handleChange}
-            placeholder="Ex: https://exemplo.com"
-            className={errors.site ? 'border-red-500' : ''}
-          />
-          {errors.site && (
-            <p className="text-sm text-red-500">{errors.site}</p>
-          )}
-        </div>
+      <div className="space-y-2">
+        <label htmlFor="site" className="block text-sm font-medium text-gray-700">Site (opcional)</label>
+        <input
+          type="url"
+          id="site"
+          name="site"
+          value={formValues.site || ''}
+          onChange={handleChange}
+          className={`block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm ${
+            errors.site ? 'border-red-500' : 'border-gray-300'
+          }`}
+          placeholder="Ex: https://www.exemplo.com"
+        />
+        {errors.site && <p className="mt-1 text-sm text-red-600">{errors.site}</p>}
+      </div>
 
-        <div className="space-y-2">
-          <Label>Localização (opcional)</Label>
-          <div className="grid grid-cols-2 gap-2">
-            <div>
-              <Input
-                type="number"
-                name="latitude"
-                step="any"
-                value={formValues.latitude || ''}
-                onChange={handleNumberChange}
-                placeholder="Latitude"
-              />
-            </div>
-            <div>
-              <Input
-                type="number"
-                name="longitude"
-                step="any"
-                value={formValues.longitude || ''}
-                onChange={handleNumberChange}
-                placeholder="Longitude"
-              />
-            </div>
-          </div>
-          <p className="text-xs text-muted-foreground">
-            Preencha apenas se souber as coordenadas exatas
-          </p>
+      <div className="space-y-2">
+        <label className="block text-sm font-medium text-gray-700">Tipos de Doação Aceitos</label>
+        <div className="flex gap-2">
+          <input
+            type="text"
+            value={tipoInput}
+            onChange={(e) => setTipoInput(e.target.value)}
+            onKeyDown={(e) => e.key === 'Enter' && (e.preventDefault(), adicionarTipo())}
+            className="flex-1 min-w-0 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm"
+            placeholder="Digite e pressione Enter"
+          />
+          <button 
+            type="button" 
+            onClick={adicionarTipo}
+            className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
+          >
+            Adicionar
+          </button>
+        </div>
+        <div className="flex flex-wrap gap-2 mt-2">
+          {tipoDoacoes.map((tipo) => (
+            <span key={tipo} className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-primary-100 text-primary-800">
+              {tipo}
+              <button 
+                type="button" 
+                onClick={() => removerTipo(tipo)}
+                className="ml-1.5 inline-flex items-center justify-center h-4 w-4 rounded-full text-primary-400 hover:bg-primary-200 hover:text-primary-500 focus:outline-none focus:bg-primary-200 focus:text-primary-500"
+                aria-label={`Remover ${tipo}`}
+              >
+                &times;
+              </button>
+            </span>
+          ))}
         </div>
       </div>
 
-      <div className="space-y-4">
-        <div className="space-y-2">
-          <Label>Tipos de Doação Aceitos</Label>
-          <div className="flex gap-2">
-            <Input
-              value={tipoInput}
-              onChange={(e) => setTipoInput(e.target.value)}
-              placeholder="Ex: Roupas, Alimentos, Brinquedos"
-              onKeyDown={(e) => e.key === 'Enter' && (e.preventDefault(), adicionarTipo())}
-            />
-            <Button type="button" onClick={adicionarTipo}>
-              Adicionar
-            </Button>
-          </div>
-          <div className="flex flex-wrap gap-2 mt-2">
-            {tipoDoacoes.map((tipo, index) => (
-              <div key={index} className="bg-secondary px-3 py-1 rounded-full text-sm flex items-center gap-1">
-                {tipo}
-                <button
-                  type="button"
-                  onClick={() => removerTipo(tipo)}
-                  className="text-muted-foreground hover:text-foreground"
-                >
-                  ×
-                </button>
-              </div>
-            ))}
-          </div>
+      <div className="space-y-2">
+        <label className="block text-sm font-medium text-gray-700">Itens Mais Necessitados (opcional)</label>
+        <div className="flex gap-2">
+          <input
+            type="text"
+            value={itemUrgenteInput}
+            onChange={(e) => setItemUrgenteInput(e.target.value)}
+            onKeyDown={(e) => e.key === 'Enter' && (e.preventDefault(), adicionarItemUrgente())}
+            className="flex-1 min-w-0 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm"
+            placeholder="Digite e pressione Enter"
+          />
+          <button 
+            type="button" 
+            onClick={adicionarItemUrgente}
+            className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
+          >
+            Adicionar
+          </button>
         </div>
-
-        <div className="space-y-2">
-          <Label>Itens Urgentes</Label>
-          <div className="flex gap-2">
-            <Input
-              value={itemUrgenteInput}
-              onChange={(e) => setItemUrgenteInput(e.target.value)}
-              placeholder="Ex: Leite em pó, Fraldas G"
-              onKeyDown={(e) => e.key === 'Enter' && (e.preventDefault(), adicionarItemUrgente())}
-            />
-            <Button type="button" onClick={adicionarItemUrgente}>
-              Adicionar
-            </Button>
-          </div>
-          <div className="flex flex-wrap gap-2 mt-2">
-            {itensUrgentes.map((item, index) => (
-              <div key={index} className="bg-destructive/10 text-destructive px-3 py-1 rounded-full text-sm flex items-center gap-1">
-                {item}
-                <button
-                  type="button"
-                  onClick={() => removerItemUrgente(item)}
-                  className="text-destructive/70 hover:text-destructive"
-                >
-                  ×
-                </button>
-              </div>
-            ))}
-          </div>
+        <div className="flex flex-wrap gap-2 mt-2">
+          {itensUrgentes.map((item) => (
+            <span key={item} className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-amber-100 text-amber-800">
+              {item}
+              <button 
+                type="button" 
+                onClick={() => removerItemUrgente(item)}
+                className="ml-1.5 inline-flex items-center justify-center h-4 w-4 rounded-full text-amber-400 hover:bg-amber-200 hover:text-amber-500 focus:outline-none focus:bg-amber-200 focus:text-amber-500"
+                aria-label={`Remover ${item}`}
+              >
+                &times;
+              </button>
+            </span>
+          ))}
         </div>
       </div>
 
-      <div className="flex justify-end gap-4 pt-4 border-t">
-        <Button type="button" variant="outline" onClick={onCancelAction}>
+      <div className="flex justify-end space-x-3 pt-6">
+        <button 
+          type="button" 
+          onClick={onCancelAction}
+          className="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
+        >
           Cancelar
-        </Button>
-        <Button type="submit">
-          {pontoInicial?.id ? 'Atualizar Ponto' : 'Adicionar Ponto'}
-        </Button>
+        </button>
+        <button 
+          type="submit" 
+          className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
+        >
+          {pontoInicial ? 'Atualizar' : 'Cadastrar'} Ponto
+        </button>
       </div>
     </form>
   );
