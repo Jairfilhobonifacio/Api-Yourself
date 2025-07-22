@@ -1,176 +1,120 @@
-# API de Doação Comunitária
+<div align="center">
+  <h1 class="flex items-center justify-center space-x-2">
+    <span class="text-4xl font-bold bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">Api</span>
+    <span class="text-4xl font-bold text-pink-500">❤️</span>
+    <span class="text-4xl font-bold bg-gradient-to-r from-teal-500 to-blue-600 bg-clip-text text-transparent">Yourself</span>
+  </h1>
+  <p class="mt-2 text-lg text-gray-600">Plataforma para conectar doadores a pontos de coleta em sua comunidade</p>
+  
+  [![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)](https://nextjs.org/)
+  [![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+  [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+  
+  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+  ![GitHub last commit](https://img.shields.io/github/last-commit/jairfilhobonifacio/Api-Yourself)
+</div>
 
-[![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org/)
-[![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![Node.js](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
-[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
+## 📋 Visão Geral
 
-Uma plataforma moderna para conectar doadores a pontos de coleta, desenvolvida com Next.js 14 (App Router), TypeScript e Tailwind CSS no frontend, e Node.js/Express com PostgreSQL no backend.
+A API de Doação Comunitária é uma plataforma que conecta doadores a pontos de coleta em suas comunidades. O objetivo é facilitar a doação de itens essenciais, tornando o processo mais acessível e transparente.
 
-<img width="1770" height="966" alt="image" src="https://github.com/user-attachments/assets/f13ddd93-a0d5-493a-a4d2-4f066ac95ab6" />
+### 🎯 Objetivos
 
+- Conectar doadores a pontos de coleta próximos
+- Fornecer informações claras sobre itens necessários
+- Promover a solidariedade e ajuda mútua nas comunidades
+- Oferecer uma plataforma intuitiva e fácil de usar
 
+## 🚀 Tecnologias Utilizadas
 
-## Destaques
+- **Frontend:**
+  - Next.js 14.1.0
+  - React 18.2.0
+  - TypeScript 5.0.0
+  - Tailwind CSS 3.3.0
+  - Lucide Icons 0.284.0
+  - Axios 1.6.0
+  - React Hook Form 7.49.0
+  - Zod 3.22.4
 
-- **Aplicação Full-Stack** com Next.js 14 e App Router
-- **Tipagem Forte** com TypeScript em todo o projeto
-- **UI Moderna e Responsiva** com Tailwind CSS 
-- **Mapa Interativo** com React Leaflet
-- **Dashboard de Estatísticas** com Recharts
-- **Tema Claro/Escuro** com suporte a preferência do sistema
-- **API RESTful** documentada
+- **Ferramentas de Desenvolvimento:**
+  - Node.js 18.0.0+
+  - npm 9.0.0+ ou Yarn 1.22.0+
+  - Git 2.25.0+
 
-## Tecnologias
+## 📦 Como Executar o Projeto
 
-### Frontend (Next.js 15)
-- **Framework**: Next.js 15 com App Router
-- **Linguagem**: TypeScript
-- **Estilização**: 
-  - Tailwind CSS com suporte a temas
-  - Tailwind CSS Animate para animações
-  - Tailwind Merge para combinação de classes
-- **UI/UX**:
-  - Radix UI para componentes acessíveis
-  - Lucide React para ícones
-  - Sonner para notificações toast
-- **Gerenciamento de Estado**:
-  - React Hooks (useState, useEffect, useContext)
-  - React Query para gerenciamento de dados assíncronos
-- **Mapas**:
-  - React Leaflet v5
-  - Leaflet para renderização de mapas
-- **Gráficos**:
-  - Recharts para visualização de dados
-- **Formulários**:
-  - React Hook Form para validação
-  - Zod para esquemas de validação
-- **Temas**:
-  - next-themes para suporte a tema claro/escuro
+### Pré-requisitos
 
-### Backend (Node.js + Express)
-- **Runtime**: Node.js
-- **Framework**: Express.js
-- **Banco de Dados**: PostgreSQL
-- **ORM**: pg (PostgreSQL client for Node.js)
-- **Segurança**:
-  - CORS para requisições seguras
-  - dotenv para gerenciamento de variáveis de ambiente
-- **Desenvolvimento**:
-  - Nodemon para reinicialização automática em desenvolvimento TypeScript
-
-## Pré-requisitos
-
-- Node.js (v18 ou superior)
-- PostgreSQL (v14 ou superior)
-- npm ou pnpm
+- Node.js (versão 18 ou superior)
+- npm ou Yarn
 - Git
 
-## Instalação
+### Instalação
 
 1. **Clone o repositório**
    ```bash
-   git clone https://github.com/Jairfilhobonifacio/Api-Yourself.git
-   cd Api-Yourself
+   git clone https://github.com/jairfilhobonifacio/Api-Yourself.git
+   cd Api-Yourself/frontend_new
    ```
 
-2. **Configure o backend**
+2. **Instale as dependências**
    ```bash
-   cd backend
    npm install
-   cp .env.example .env
-   # Configure as variáveis de ambiente no arquivo .env
+   # ou
+   yarn install
    ```
 
-3. **Configure o frontend**
-   ```bash
-   cd ../frontend_new
-   npm install
-   cp .env.example .env
-   # Configure a URL da API no arquivo .env
+3. **Configure as variáveis de ambiente**
+   Crie um arquivo `.env.local` na raiz do projeto com as seguintes variáveis:
+   ```env
+   NEXT_PUBLIC_API_URL=http://localhost:3001/api
    ```
 
-4. **Inicie os servidores de desenvolvimento**
+4. **Inicie o servidor de desenvolvimento**
    ```bash
-   # No diretório backend
    npm run dev
-   
-   # Em outro terminal, no diretório frontend_new
-   npm run dev
+   # ou
+   yarn dev
    ```
 
 5. **Acesse a aplicação**
-   ```
-   http://localhost:3000
-   ```
+   Abra [http://localhost:3000](http://localhost:3000) no seu navegador.
 
-## Estrutura do Projeto
+## 📚 Documentação da API
 
-```
-Api-Yourself/
-├── backend/                 # Backend Node.js/Express
-│   ├── src/
-│   │   ├── config/        # Configurações do banco de dados
-│   │   ├── controllers/   # Lógica dos controladores
-│   │   ├── middlewares/   # Middlewares do Express
-│   │   ├── models/        # Modelos do Prisma
-│   │   ├── routes/        # Rotas da API
-│   │   ├── services/      # Lógica de negócios
-│   │   ├── utils/         # Utilitários
-│   │   └── app.ts         # Aplicação principal
-│   └── prisma/           # Migrações e schema do Prisma
-│
-└── frontend_new/           # Frontend Next.js
-    ├── public/            # Arquivos estáticos
-    ├── src/
-    │   ├── app/           # Rotas da aplicação (App Router)
-    │   ├── components/    # Componentes reutilizáveis
-    │   ├── context/       # Contextos do React
-    │   ├── hooks/         # Custom hooks
-    │   ├── lib/           # Configurações e utilitários
-    │   ├── types/         # Tipos TypeScript
-    │   └── styles/        # Estilos globais
-    └── tailwind.config.ts # Configuração do Tailwind CSS
-```
-
-## Documentação da API
-
-A documentação interativa da API está disponível em `/api-docs` quando o servidor estiver em execução.
+A API utilizada neste projeto está disponível em:
+[Repositório da API](https://github.com/jairfilhobonifacio/Api-Yourself)
 
 ### Principais Endpoints
 
 - `GET /api/pontos` - Lista todos os pontos de doação
-- `GET /api/pontos/estatisticas` - Estatísticas dos pontos de doação
-- `GET /api/pontos/:id` - Busca um ponto específico
-- `POST /api/pontos` - Cria um novo ponto de doação
-- `PUT /api/pontos/:id` - Atualiza um ponto existente
-- `DELETE /api/pontos/:id` - Remove um ponto de doação
+- `GET /api/pontos/cidade/:cidade` - Busca pontos por cidade
+- `GET /api/estatisticas` - Obtém estatísticas de doações
 
-## Como Contribuir
+## 🖼️ Screenshots
 
-1. Faça um fork do projeto
-2. Crie uma branch para sua feature (`git checkout -b feature/nova-feature`)
-3. Commit suas alterações (`git commit -m 'feat: adiciona nova funcionalidade'`)
-4. Faça o push para a branch (`git push origin feature/nova-feature`)
-5. Abra um Pull Request
+<div align="center">
+  <<img width="1770" height="966" alt="image" src="https://github.com/user-attachments/assets/33db29ff-8fae-48b7-a072-f3a825a500e7" />>
+  <img src="/public/screenshots/dark-mode.png" alt="Modo Escuro" width="45%">
+  <img src="/public/screenshots/mobile.png" alt="Versão Mobile" width="30%">
+</div>
 
-## Licença
+## 🤝 Como Contribuir
 
-Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+1. Faça um Fork do projeto
+2. Crie uma Branch para sua Feature (`git checkout -b feature/AmazingFeature`)
+3. Adicione suas alterações (`git add .`)
+4. Comite suas alterações (`git commit -m 'Add some AmazingFeature'`)
+5. Faça o Push da Branch (`git push origin feature/AmazingFeature`)
+6. Abra um Pull Request
 
-## Autores
+## 📄 Licença
 
-- **Jair Filho** - [GitHub](https://github.com/Jairfilhobonifacio) | [LinkedIn](#)
-
-## Agradecimentos
-
-- À comunidade de código aberto por todas as ferramentas incríveis
-- Aos contribuidores que ajudaram no desenvolvimento
-- A todos que acreditam no poder da solidariedade e da tecnologia para o bem
+Este projeto está sob a licença MIT - veja o arquivo [LICENSE](LICENSE) para detalhes.
 
 ---
 
 <div align="center">
-  Feito com ❤️ por <a href="https://github.com/Jairfilhobonifacio">Jair Filho</a>
+  Desenvolvido com ❤️ por <a href="https://github.com/jairfilhobonifacio">Jair Filho</a>
 </div>
