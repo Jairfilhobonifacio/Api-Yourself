@@ -28,6 +28,16 @@
 
 A API de Doação Comunitária é uma plataforma que conecta doadores a pontos de coleta em suas comunidades. O objetivo é facilitar a doação de itens essenciais, tornando o processo mais acessível e transparente.
 
+
+
+## 🖼️ Screenshots
+
+<div align="center">
+  <<img width="1770" height="966" alt="image" src="https://github.com/user-attachments/assets/33db29ff-8fae-48b7-a072-f3a825a500e7" />>
+  <<<img width="1779" height="948" alt="Api yourself tema branco" src="https://github.com/user-attachments/assets/6a2d47f8-c90d-4977-be6d-d8c748ef7a10" />
+
+
+
 ### 🎯 Objetivos
 
 - Conectar doadores a pontos de coleta próximos
@@ -101,12 +111,6 @@ A API utilizada neste projeto está disponível em:
 - `GET /api/pontos` - Lista todos os pontos de doação
 - `GET /api/pontos/cidade/:cidade` - Busca pontos por cidade
 - `GET /api/estatisticas` - Obtém estatísticas de doações
-
-## 🖼️ Screenshots
-
-<div align="center">
-  <<img width="1770" height="966" alt="image" src="https://github.com/user-attachments/assets/33db29ff-8fae-48b7-a072-f3a825a500e7" />>
-  <<<img width="1779" height="948" alt="Api yourself tema branco" src="https://github.com/user-attachments/assets/6a2d47f8-c90d-4977-be6d-d8c748ef7a10" />
 
 
 ## 🤝 Como Contribuir
