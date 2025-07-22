@@ -8,7 +8,8 @@
 
 Uma plataforma moderna para conectar doadores a pontos de coleta, desenvolvida com Next.js 14 (App Router), TypeScript e Tailwind CSS no frontend, e Node.js/Express com PostgreSQL no backend.
 
-<img width="1670" height="965" alt="image" src="https://github.com/user-attachments/assets/894ca15f-29fe-4323-b2de-6c51ecca5787" />
+<img width="1770" height="966" alt="image" src="https://github.com/user-attachments/assets/f13ddd93-a0d5-493a-a4d2-4f066ac95ab6" />
+
 
 
 ## Destaques
