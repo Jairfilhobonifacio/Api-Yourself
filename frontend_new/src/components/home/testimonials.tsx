@@ -4,8 +4,8 @@
 
 // Importa o React e seus hooks.
 import * as React from 'react'
-// Importa o componente Card para a estrutura dos depoimentos.
-import { Card, CardContent } from "@/components/ui/card"
+// Importa o componente Card personalizado para a estrutura dos depoimentos.
+import { Card, CardContent } from "@/components/ui/custom-card"
 // Importa o ícone de estrela para a avaliação.
 import { Star } from "lucide-react"
 // Importa o componente Image do Next.js para otimização de imagens.

@@ -1,7 +1,7 @@
 // Importa ícones que representam os tipos de doação.
 import { Gift, HeartHandshake, Utensils, Shirt } from "lucide-react"
-// Importa os componentes de Card para a exibição.
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+// Importa os componentes de Card personalizados para a exibição.
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/custom-card"
 
 // Define um tipo para os objetos de tipo de doação, garantindo a consistência dos dados.
 type DonationType = {

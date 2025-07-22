@@ -4,17 +4,17 @@ import * as React from "react"
 import { PontoCard } from "@/components/pontos/ponto-card"
 import { FiltroPontos } from "@/components/pontos/filtro-pontos"
 import { usePontosDoacao } from "@/context/PontosDoacaoContext"
-import { toast } from "@/components/ui/use-toast"
-import type { PontoDoacao } from "@/types/ponto"
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { useToast } from "@/components/ui/use-custom-toast"
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/custom-alert"
+import { Skeleton } from "@/components/ui/custom-skeleton"
 import { AlertCircle, Plus, Loader2, Info } from "lucide-react"
 import Link from "next/link"
-import { Skeleton } from "@/components/ui/skeleton"
 
 export default function PontosPage() {
   const [busca, setBusca] = React.useState('')
   const [filtros, setFiltros] = React.useState<string[]>([])
   const [localError, setLocalError] = React.useState<Error | null>(null);
+  const { toast } = useToast();
   const { 
     pontos, 
     loading, 
@@ -23,6 +23,18 @@ export default function PontosPage() {
     removerPonto 
   } = usePontosDoacao();
   
+  // Definir tipo para o ponto de doação
+  interface PontoDoacao {
+    id?: string | number;
+    nome?: string;
+    endereco?: string;
+    telefone?: string;
+    email?: string;
+    horarioFuncionamento?: string;
+    necessidades?: (string | number | boolean)[];
+    site?: string;
+  }
+
   const [pontosLocais, setPontosLocais] = React.useState<PontoDoacao[]>([]);
   
   // Sincroniza os pontos locais com os pontos do contexto
@@ -181,7 +193,7 @@ export default function PontosPage() {
       // Recarregar os pontos para garantir que a lista esteja atualizada
       await carregarPontos();
       
-      // Mostrar mensagem de sucesso
+      // Mostrar mensagem de sucesso (usando variant default para sucesso)
       toast({
         title: "Sucesso",
         description: "Ponto de doação removido com sucesso.",
@@ -190,7 +202,7 @@ export default function PontosPage() {
     } catch (error) {
       console.error('Erro ao remover ponto:', error);
       
-      // Mostrar mensagem de erro
+      // Mostrar mensagem de erro (usando variant destructive para erros)
       toast({
         title: "Erro",
         description: "Não foi possível remover o ponto de doação. Tente novamente.",

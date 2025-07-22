@@ -5,8 +5,7 @@ import { useState } from 'react';
 import { usePontosDoacao } from '@/context/PontosDoacaoContext';
 import PontoDoacaoForm from '@/components/pontos/PontoDoacaoForm';
 import { CriarPontoData, AtualizarPontoData } from '@/types/api';
-import { Button } from '@/components/ui/button';
-import Link from 'next/link';
+import { Button } from '@/components/ui/custom-button';
 import { ArrowLeft } from 'lucide-react';
 
 export default function NovoPontoPage() {
@@ -40,11 +39,11 @@ export default function NovoPontoPage() {
         onCancelAction={() => router.push('/pontos')}
       />
 
-      <Button variant="outline" asChild disabled={submitting}>
-        <Link href="/pontos">
+      <div className="flex items-center">
+        <Button variant="outline" onClick={() => router.push('/pontos')} disabled={submitting}>
           <ArrowLeft className="h-4 w-4 mr-2" /> Voltar para a lista
-        </Link>
-      </Button>
+        </Button>
+      </div>
     </main>
   );
 }

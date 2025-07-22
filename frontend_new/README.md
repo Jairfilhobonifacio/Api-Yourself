@@ -1,36 +1,121 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<div align="center">
+  <h1 class="flex items-center justify-center space-x-2">
+    <span class="text-4xl font-bold bg-gradient-to-r from-blue-600 to-teal-500 bg-clip-text text-transparent">Api</span>
+    <span class="text-4xl font-bold text-pink-500">❤️</span>
+    <span class="text-4xl font-bold bg-gradient-to-r from-teal-500 to-blue-600 bg-clip-text text-transparent">Yourself</span>
+  </h1>
+  <p class="mt-2 text-lg text-gray-600">Plataforma para conectar doadores a pontos de coleta em sua comunidade</p>
+  
+  [![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)](https://nextjs.org/)
+  [![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+  [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+  
+  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+  ![GitHub last commit](https://img.shields.io/github/last-commit/jairfilhobonifacio/Api-Yourself)
+</div>
 
-## Getting Started
+## 📋 Visão Geral
 
-First, run the development server:
+A API de Doação Comunitária é uma plataforma que conecta doadores a pontos de coleta em suas comunidades. O objetivo é facilitar a doação de itens essenciais, tornando o processo mais acessível e transparente.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### 🎯 Objetivos
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Conectar doadores a pontos de coleta próximos
+- Fornecer informações claras sobre itens necessários
+- Promover a solidariedade e ajuda mútua nas comunidades
+- Oferecer uma plataforma intuitiva e fácil de usar
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🚀 Tecnologias Utilizadas
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Frontend:**
+  - Next.js 14.1.0
+  - React 18.2.0
+  - TypeScript 5.0.0
+  - Tailwind CSS 3.3.0
+  - Lucide Icons 0.284.0
+  - Axios 1.6.0
+  - React Hook Form 7.49.0
+  - Zod 3.22.4
 
-## Learn More
+- **Ferramentas de Desenvolvimento:**
+  - Node.js 18.0.0+
+  - npm 9.0.0+ ou Yarn 1.22.0+
+  - Git 2.25.0+
 
-To learn more about Next.js, take a look at the following resources:
+## 📦 Como Executar o Projeto
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Pré-requisitos
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Node.js (versão 18 ou superior)
+- npm ou Yarn
+- Git
 
-## Deploy on Vercel
+### Instalação
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. **Clone o repositório**
+   ```bash
+   git clone https://github.com/jairfilhobonifacio/Api-Yourself.git
+   cd Api-Yourself/frontend_new
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+2. **Instale as dependências**
+   ```bash
+   npm install
+   # ou
+   yarn install
+   ```
+
+3. **Configure as variáveis de ambiente**
+   Crie um arquivo `.env.local` na raiz do projeto com as seguintes variáveis:
+   ```env
+   NEXT_PUBLIC_API_URL=http://localhost:3001/api
+   ```
+
+4. **Inicie o servidor de desenvolvimento**
+   ```bash
+   npm run dev
+   # ou
+   yarn dev
+   ```
+
+5. **Acesse a aplicação**
+   Abra [http://localhost:3000](http://localhost:3000) no seu navegador.
+
+## 📚 Documentação da API
+
+A API utilizada neste projeto está disponível em:
+[Repositório da API](https://github.com/jairfilhobonifacio/Api-Yourself)
+
+### Principais Endpoints
+
+- `GET /api/pontos` - Lista todos os pontos de doação
+- `GET /api/pontos/cidade/:cidade` - Busca pontos por cidade
+- `GET /api/estatisticas` - Obtém estatísticas de doações
+- `GET /api/necessidades` - Lista itens necessários
+
+## 🖼️ Screenshots
+
+<div align="center">
+  <img src="/public/screenshots/home.png" alt="Página Inicial" width="45%">
+  <img src="/public/screenshots/dark-mode.png" alt="Modo Escuro" width="45%">
+  <img src="/public/screenshots/mobile.png" alt="Versão Mobile" width="30%">
+</div>
+
+## 🤝 Como Contribuir
+
+1. Faça um Fork do projeto
+2. Crie uma Branch para sua Feature (`git checkout -b feature/AmazingFeature`)
+3. Adicione suas alterações (`git add .`)
+4. Comite suas alterações (`git commit -m 'Add some AmazingFeature'`)
+5. Faça o Push da Branch (`git push origin feature/AmazingFeature`)
+6. Abra um Pull Request
+
+## 📄 Licença
+
+Este projeto está sob a licença MIT - veja o arquivo [LICENSE](LICENSE) para detalhes.
+
+---
+
+<div align="center">
+  Desenvolvido com ❤️ por <a href="https://github.com/jairfilhobonifacio">Jair Filho</a>
+</div>

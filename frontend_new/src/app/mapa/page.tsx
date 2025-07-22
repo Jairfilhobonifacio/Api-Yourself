@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import MapaPontos from '@/components/mapa/mapa-pontos'
 import { FiltroPontos } from '@/components/pontos/filtro-pontos'
-import { Button } from '@/components/ui/button'
+import { Button } from '@/components/ui/custom-button'
 import { Plus } from 'lucide-react'
 import Link from 'next/link'
 
@@ -114,11 +114,12 @@ export default function MapaPage() {
             Encontre os pontos de doação mais próximos de você
           </p>
         </div>
-        <Button asChild>
-          <Link href="/pontos/novo" className="flex items-center gap-2">
-            <Plus className="h-4 w-4" />
-            Adicionar Ponto
-          </Link>
+        <Button 
+          onClick={() => window.location.href = '/pontos/novo'}
+          className="flex items-center gap-2"
+        >
+          <Plus className="h-4 w-4" />
+          Adicionar Ponto
         </Button>
       </div>
 

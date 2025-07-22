@@ -1,7 +1,7 @@
 // Importa o componente Link do Next.js para navegação.
 import Link from "next/link"
 // Importa o componente de botão personalizado.
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/custom-button"
 // Importa um ícone para dar apelo visual à seção.
 import { HeartHandshake } from "lucide-react"
 
@@ -30,17 +30,17 @@ export function CTA() {
           {/* Contêiner para os botões de ação, com layout responsivo. */}
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             {/* Botão para encontrar pontos de doação existentes. */}
-            <Button size="lg" asChild>
-              <Link href="/pontos">
+            <Link href="/pontos">
+              <Button size="lg">
                 Encontrar pontos de doação
-              </Link>
-            </Button>
+              </Button>
+            </Link>
             {/* Botão para cadastrar um novo ponto de doação. */}
-            <Button size="lg" variant="outline" asChild>
-              <Link href="/pontos">
+            <Link href="/pontos">
+              <Button size="lg" variant="outline">
                 Cadastrar ponto de doação
-              </Link>
-            </Button>
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

@@ -1,5 +1,5 @@
-// Importa os componentes de Card para estruturar a exibição das estatísticas.
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+// Importa os componentes de Card personalizados para estruturar a exibição das estatísticas.
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/custom-card"
 // Importa ícones para representar visualmente cada estatística.
 import { HandHeart, MapPin, Users } from "lucide-react"
 

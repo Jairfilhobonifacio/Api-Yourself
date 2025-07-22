@@ -154,7 +154,12 @@ export function PontoCard({
   const closeModal = () => !isDeleting && setIsModalOpen(false);
 
   return (
-    <div className={cn("group relative rounded-lg border bg-white text-foreground shadow-sm overflow-hidden h-full flex flex-col transition-all duration-200 hover:shadow-md", className)}>
+    <div className={cn(
+      "group relative rounded-xl border border-border/50 bg-card/50 backdrop-blur-sm overflow-hidden h-full flex flex-col transition-all duration-300 hover:shadow-lg hover:border-primary/30 hover:bg-card/70",
+      "border-blue-200/50 dark:border-border/50", // Light blue border in light mode, default in dark mode
+      "dark:bg-card/30 dark:hover:bg-card/50",
+      className
+    )}>
       {id && onDelete && (
         <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity z-10">
           <button
@@ -218,73 +223,88 @@ export function PontoCard({
       )}
       <div className="p-6 space-y-4 flex-1 flex flex-col">
         <div className="flex-1">
-          <div className="flex justify-between items-start gap-2">
-            <h3 className="text-xl font-semibold mb-2 text-foreground">{nome || 'Ponto sem nome'}</h3>
+          <div className="relative -mx-6 -mt-6 mb-4 p-6 pb-4 bg-gradient-to-r from-blue-600/10 to-blue-500/10 dark:from-blue-900/30 dark:to-blue-800/30 border-b border-border/20">
+            <h3 className="text-xl font-bold text-foreground">{nome || 'Ponto de Doação'}</h3>
             
+          </div>
+          
+          <div className="flex flex-wrap gap-2 mb-4">
             {Array.isArray(necessidades) && necessidades.length > 0 ? (
-              <div className="flex gap-2 flex-wrap justify-end">
+              <>
                 {necessidades
                   .filter((n): n is string => typeof n === 'string' && n.trim() !== '')
                   .slice(0, 3)
                   .map((necessidade, index) => (
                     <span 
                       key={`${String(necessidade)}-${index}`} 
-                      className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-secondary text-muted-foreground whitespace-nowrap hover:bg-secondary/80 transition-colors"
+                      className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-primary/10 text-primary dark:bg-primary dark:text-white whitespace-nowrap hover:bg-primary/90 transition-colors"
                     >
                       {String(necessidade)}
                     </span>
                   ))}
                 {necessidades.length > 3 && (
-                  <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium border border-muted bg-transparent text-muted-foreground">
-                    +{necessidades.length - 3}
+                  <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-muted/50 text-foreground dark:bg-muted dark:text-foreground">
+                    +{necessidades.length - 3} mais
                   </span>
                 )}
-              </div>
+              </>
             ) : (
-              <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium border border-muted bg-transparent text-muted-foreground">
-                Sem itens
+              <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-muted/50 text-foreground dark:bg-muted dark:text-foreground">
+                Sem itens cadastrados
               </span>
             )}
           </div>
 
-          <div className="space-y-3 mt-4">
-            <div className="flex items-start gap-3">
-              <MapPin className="h-5 w-5 mt-0.5 text-muted-foreground flex-shrink-0" />
-              <p className="text-sm text-muted-foreground">{endereco}</p>
+          <div className="space-y-4 mt-2">
+            <div className="flex items-start gap-3 p-3 bg-muted/20 dark:bg-muted/10 rounded-lg">
+              <MapPin className="h-5 w-5 mt-0.5 text-primary flex-shrink-0" />
+              <div>
+                <p className="text-sm font-medium text-foreground">Endereço</p>
+                <p className="text-sm text-muted-foreground mt-0.5">{endereco}</p>
+              </div>
             </div>
 
-            <div className="flex items-start gap-3">
-              <Clock className="h-5 w-5 mt-0.5 text-muted-foreground flex-shrink-0" />
-              <p className="text-sm text-muted-foreground">{horarioFuncionamento}</p>
+            <div className="flex items-start gap-3 p-3 bg-muted/20 dark:bg-muted/10 rounded-lg">
+              <Clock className="h-5 w-5 mt-0.5 text-primary flex-shrink-0" />
+              <div>
+                <p className="text-sm font-medium text-foreground">Horário de Funcionamento</p>
+                <p className="text-sm text-muted-foreground mt-0.5">{horarioFuncionamento}</p>
+              </div>
             </div>
 
-            <div className="flex items-center gap-3">
-              <Phone className="h-5 w-5 text-muted-foreground flex-shrink-0" />
-              {isPhoneValid ? (
-                <a 
-                  href={`tel:${telefone.replace(/[^0-9+]/g, '')}`} 
-                  className="text-sm text-muted-foreground hover:underline"
-                >
-                  {telefone}
-                </a>
-              ) : (
-                <span className="text-sm text-muted-foreground">{telefone}</span>
-              )}
+            <div className="flex items-start gap-3 p-3 bg-muted/20 dark:bg-muted/10 rounded-lg">
+              <Phone className="h-5 w-5 mt-0.5 text-primary flex-shrink-0" />
+              <div>
+                <p className="text-sm font-medium text-foreground">Telefone</p>
+                {isPhoneValid ? (
+                  <a 
+                    href={`tel:${telefone.replace(/[^0-9+]/g, '')}`} 
+                    className="text-sm text-muted-foreground hover:text-primary hover:underline transition-colors"
+                  >
+                    {telefone}
+                  </a>
+                ) : (
+                  <span className="text-sm text-muted-foreground">{telefone}</span>
+                )}
+              </div>
             </div>
 
             {(email || isEmailValid) && (
-              <div className="flex items-center gap-3">
-                <Mail className="h-5 w-5 text-muted-foreground flex-shrink-0" />
-                {isEmailValid ? (
-                  <a 
-                    href={`mailto:${email}`} 
-                    className="text-sm text-muted-foreground hover:underline break-all"
-                  >
-                    {email}
-                  </a>
-                ) : (
-                  <span className="text-sm text-muted-foreground">{email}</span>
-                )}
+              <div className="flex items-start gap-3 p-3 bg-muted/20 dark:bg-muted/10 rounded-lg">
+                <Mail className="h-5 w-5 mt-0.5 text-primary flex-shrink-0" />
+                <div>
+                  <p className="text-sm font-medium text-foreground">E-mail</p>
+                  {isEmailValid ? (
+                    <a 
+                      href={`mailto:${email}`} 
+                      className="text-sm text-muted-foreground hover:text-primary hover:underline break-all transition-colors"
+                    >
+                      {email}
+                    </a>
+                  ) : (
+                    <span className="text-sm text-muted-foreground">{email}</span>
+                  )}
+                </div>
               </div>
             )}
           </div>
@@ -296,9 +316,9 @@ export function PontoCard({
               href={site.startsWith('http') ? site : `https://${site}`} 
               target="_blank" 
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center w-full px-4 py-2 text-sm font-medium transition-colors rounded-md border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+              className="inline-flex items-center justify-center w-full px-4 py-2.5 text-sm font-medium transition-colors rounded-lg border border-primary/20 bg-primary/5 text-primary hover:bg-primary/10 hover:border-primary/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
             >
-              Visitar site <ExternalLink className="ml-2 h-4 w-4" />
+              Visitar site <ExternalLink className="ml-2 h-3.5 w-3.5" />
             </a>
           </div>
         )}

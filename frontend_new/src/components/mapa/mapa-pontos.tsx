@@ -2,9 +2,9 @@
 
 import dynamic from 'next/dynamic'
 import { useEffect, useMemo, useRef, useState, Suspense } from 'react'
-import { useToast } from '@/components/ui/use-toast'
-import { Skeleton } from '@/components/ui/skeleton'
-import { Button } from '@/components/ui/button'
+import { useToast } from '@/components/ui/use-custom-toast'
+import { Skeleton } from '@/components/ui/custom-skeleton'
+import { Button } from '@/components/ui/custom-button'
 import { LocateFixed, Loader2 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import 'leaflet/dist/leaflet.css'
