@@ -20,7 +20,7 @@ const nextConfig = {
   },
   // Configuração de rewrites para redirecionar as requisições da API e rotas não-API
   async rewrites() {
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://api-yourself.onrender.com';
     console.log('Configurando proxy para a API:', apiUrl);
     
     return [
