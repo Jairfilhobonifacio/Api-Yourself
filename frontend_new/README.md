@@ -91,7 +91,6 @@ A API utilizada neste projeto está disponível em:
 - `GET /api/pontos` - Lista todos os pontos de doação
 - `GET /api/pontos/cidade/:cidade` - Busca pontos por cidade
 - `GET /api/estatisticas` - Obtém estatísticas de doações
-- `GET /api/necessidades` - Lista itens necessários
 
 ## 🖼️ Screenshots
 
