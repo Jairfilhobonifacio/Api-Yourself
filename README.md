@@ -97,10 +97,7 @@ A API utilizada neste projeto está disponível em:
 <div align="center">
   <<img width="1770" height="966" alt="image" src="https://github.com/user-attachments/assets/33db29ff-8fae-48b7-a072-f3a825a500e7" />>
   <<<img width="1779" height="948" alt="Api yourself tema branco" src="https://github.com/user-attachments/assets/6a2d47f8-c90d-4977-be6d-d8c748ef7a10" />
- width="1611" height="937" alt="image" src="https://github.com/user-attachments/assets/c7d2a225-2be9-4e1d-8e6e-19bf5f249406" />
- alt="Modo Escuro" width="45%">
-  <img src="/public/screenshots/mobile.png" alt="Versão Mobile" width="30%">
-</div>
+
 
 ## 🤝 Como Contribuir
 
